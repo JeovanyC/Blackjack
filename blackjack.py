@@ -2,20 +2,33 @@ import random
 
 class Game():
 
+        def __init__(self,) -> None:
+        
+        def do_action(player_hand: list) -> int:
+
+                valid_actions = ["h", "k", "d", "s", "q"]
+                print()
+
+                while True:
+                        player_action = input("> ").lowercase().strip()
+       	                if player_action in valid_actions:
+	                        return player_action
+       	        print("Invalid action")
+
         def print_hands(dealer_hand: list, player_hand: list, end_bool: bool) -> None:
 
-    print("Dealer hand:")
-    print()
-    print(render_hand(dealer_hand, True))
-    print()
-    print(f"The total sum of dealer cards is: {sum_hand(dealer_hand))}")
+                print("Dealer hand:")
+                print()
+                print(render_hand(dealer_hand, True))
+                print()
+                print(f"The total sum of dealer cards is: {sum_hand(dealer_hand))}")
 
-    print()
+                print()
     
-    print("Your hand:")
-    print()
-    print(f"The total sum of your cards  is: {sum_hand(player_hand))}")
-    print()
+                print("Your hand:")
+                print()
+                print(f"The total sum of your cards  is: {sum_hand(player_hand))}")
+                print()
 
 class Deck():
         
@@ -52,9 +65,9 @@ class Deck():
                 for i in self.hand():
                         render_deck.append(i.render_card())
 
-                for i in render_deck
+                for i, j in render_deck:
+                        
         
-
 class Card():
 
         card_hashmap = [
@@ -64,7 +77,7 @@ class Card():
                 "|_##|",                
         ]
 
-        
+
         def __init__(self, value: int, suit: str, flipped: bool) -> None:
 
                 self.value = value
@@ -95,21 +108,33 @@ class Card():
                         if len(value) == 2:
                                 temp_value = value
                                 for i in card[0]:
-                                        if i == "#": card.replace(card[0][1], temp_value[0]); temp_value.replace(temp_value[0], "")
+                                        if i == "#":
+                                                card.replace(card[0][i], temp_value[0])
+                                                temp_value.replace(temp_value[0], "")
                                 temp_value = value
                                 for i in card[2]:
-                                        if i == "#": card.replace(card[0][1], temp_value[0]); temp_value.replace(temp_value[0], "")
+                                        if i == "#":
+                                                card.replace(card[0][i], temp_value[0])
+                                                temp_value.replace(temp_value[0], "")
                         else:
                                 temp_value = value
-                                is_blank = True
+                                is_blank = False
                                 for i in card[0]:
-                                        if is_blank == True and i == "#": card.replace(card[0][1], " "); is_blank = False
-                                        elif i == "#": card.replace(card[2][i], temp_value[0]); temp_value.replace(value[0], "")
+                                        if is_blank == True and i == "#":
+                                                card.replace(card[0][i], " ")
+                                                is_blank = True
+                                        elif i == "#":
+                                                card.replace(card[2][i], temp_value[0])
+                                                temp_value.replace()
                                 temp_value = value
                                 for i in card[2]:
-                                        if blank_counter == False and i == "#": card.replace(card[2][i], " "); is_blank = True
-                                        elif i == "#": card.replace(card[2][i], temp_value[0]); temp_value.replace(value[0], "")
-                        for i in card[2]:
+                                        if is_blank == True and i == "#":
+                                                card.replace(card[2][i], "_")
+                                                is_blank = False
+                                        elif i == "#":
+                                                card.replace(card[2][i], temp_value[0])
+                                                temp_value.replace(value[0], "")
+                        for i in card[1]:
                                 if i == "#": card[2][i] = self.suit
                         return card
                 else:
@@ -136,20 +161,7 @@ Surrender (Q)
        	action = do_action(player_hand)
 	print_game(dealer_hand, player_hand)
 	check_hands(dealer_hand, player_hand)
-	
-
-def do_action(player_hand: list) -> int:
-
-    valid_actions = ["h", "k", "d", "s", "q"]
-    print()
-
-    while True:
-        player_action = input("> ").lowercase().strip()
-       	if player_action in valid_actions:
-	    return player_action
-       	print("Invalid action")
 			
-
 def check_hands(dealer_hand: tuple, player_hand: tuple) -> None:
 
     for 
