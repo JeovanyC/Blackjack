@@ -1,9 +1,15 @@
 import random
 
+suits = ["♣", "♥", "♠", "♦"]
+values = ["A", "K", "Q", "J", "10", "9", "8", "7", "6", "5", "4", "3", "2"]
+
 class Game():
 
-        def __init__(self,) -> None:
-        
+        def __init__(self, money: 500) -> None:
+
+
+        self.dealer_hand = Deck
+                
         def do_action(player_hand: list) -> int:
 
                 valid_actions = ["h", "k", "d", "s", "q"]
@@ -14,8 +20,8 @@ class Game():
        	                if player_action in valid_actions:
 	                        return player_action
        	        print("Invalid action")
-
-        def print_hands(dealer_hand: list, player_hand: list, end_bool: bool) -> None:
+                
+        def render_game() -> None:
 
                 print("Dealer hand:")
                 print()
@@ -27,47 +33,58 @@ class Game():
     
                 print("Your hand:")
                 print()
+
+                
+                
                 print(f"The total sum of your cards  is: {sum_hand(player_hand))}")
                 print()
 
 class Deck():
+
+        def __init__(self) -> None:
+                pass
         
-        def __init__(self, player: str, hand: list) -> None:
-
-                self.player = player
-                self.hand = hand
-
-        suits = ["♣", "♥", "♠", "♦"]
-        values = ["A", "K", "Q", "J", "10", "9", "8", "7", "6", "5", "4", "3", "2"]
+        def create_deck() -> None:
+                
+                self.deck = []
+                while len(self.deck) < 2:
+                        self.deck.append((create_card()))
                 
         def create_card() -> None:
                 
-                value = random.choice(values)
-                suit = random.choice(suits)
-                
-                self.hand.append(Card(value, suit))
+                return Card(random.choice(values), random.choice(suits))
 
         def flip_card(card_index: int) -> None:
-
-                if 0 < len(self.hand) <= card_index:
-                        self.hand[card_index].flipp_card()
+                
+                self.hand[card_index].flipp_card()
                 
         def sum_hand() -> int:
 
                 sum = 0
-                for i in self.hand():
-                        sum += i.return_value()
-                return sum
+                for i in self.deck:
+                        value = i.return_value()
 
+                        if value in "A":
+                                value += 1        
+                        elif i in ["K", "Q", "J"]:
+                                value += 10
+                        else:
+                                value += int(value)
+                return sum
+                        
         def render_deck() -> None:
 
                 render_deck = []
                 for i in self.hand():
                         render_deck.append(i.render_card())
 
-                for i, j in render_deck:
+                line_printed = 0
+                while line_printed < 4:
+                        print(" ".join(render_deck[line_printed] for card_line in render_deck))
+                        line_printed += 1
+
+        def clear_deck()
                         
-        
 class Card():
 
         card_hashmap = [
@@ -78,7 +95,7 @@ class Card():
         ]
 
 
-        def __init__(self, value: int, suit: str, flipped: bool) -> None:
+        def __init__(self, value: int, suit: str, flipped: bool, flipped=True) -> None:
 
                 self.value = value
                 self.suit = suit
@@ -104,37 +121,36 @@ class Card():
                 card = card_hashmap
                 
                 if not self.flipped == true:
-                        value = str(value)
-                        if len(value) == 2:
-                                temp_value = value
-                                for i in card[0]:
+                        if len(self.value) == 2:
+                                temp_value = self.value
+                                for i in card[1]:
                                         if i == "#":
-                                                card.replace(card[0][i], temp_value[0])
+                                                card.replace(card[1][i], temp_value[0])
                                                 temp_value.replace(temp_value[0], "")
-                                temp_value = value
-                                for i in card[2]:
+                                temp_value = self.value
+                                for i in card[3]:
                                         if i == "#":
-                                                card.replace(card[0][i], temp_value[0])
+                                                card.replace(card[3][i], temp_value[0])
                                                 temp_value.replace(temp_value[0], "")
                         else:
-                                temp_value = value
+                                temp_value = self.value
                                 is_blank = False
-                                for i in card[0]:
+                                for i in card[1]:
                                         if is_blank == True and i == "#":
-                                                card.replace(card[0][i], " ")
+                                                card.replace(card[1][i], " ")
                                                 is_blank = True
                                         elif i == "#":
-                                                card.replace(card[2][i], temp_value[0])
+                                                card.replace(card[1][i], temp_value[0])
                                                 temp_value.replace()
-                                temp_value = value
-                                for i in card[2]:
+                                temp_value = self.value
+                                for i in card[3]:
                                         if is_blank == True and i == "#":
-                                                card.replace(card[2][i], "_")
+                                                card.replace(card[3][i], "_")
                                                 is_blank = False
                                         elif i == "#":
-                                                card.replace(card[2][i], temp_value[0])
+                                                card.replace(card[3][i], temp_value[0])
                                                 temp_value.replace(value[0], "")
-                        for i in card[1]:
+                        for i in card[2]:
                                 if i == "#": card[2][i] = self.suit
                         return card
                 else:
