@@ -1,26 +1,55 @@
-import random
+import random, sys
 
 suits = ["♣", "♥", "♠", "♦"]
 values = ["A", "K", "Q", "J", "10", "9", "8", "7", "6", "5", "4", "3", "2"]
 
 class Game():
 
-        def __init__(self, money: 500) -> None:
+        def __init__(self, money: int, money=500) -> None:
 
+                self.money = money
 
-        self.dealer_hand = Deck
+        def get_hands() -> None:
+
+                self.dealer_hand = Deck().take_card()
+                self.dealer_hand.take_card()
+                self.player_hand = Deck().take_card()
+                self.player_hand.take_card()
                 
-        def do_action(player_hand: list) -> int:
+        def do_action() -> None:
 
                 valid_actions = ["h", "k", "d", "s", "q"]
-                print()
+                    print('''
+Actions:
+
+T - Take card
+K - Keep hand
+D - Double the bet and take a card
+S - Split the deck in two and Double Down
+Q - Quit
+'''
 
                 while True:
                         player_action = input("> ").lowercase().strip()
        	                if player_action in valid_actions:
 	                        return player_action
-       	        print("Invalid action")
-                
+       	                print("Invalid action")
+
+                match player_action:
+                        case "h":
+                                self.player_hand.take_card()
+                        case "k":
+                                pass
+                        case "d":
+                                self.player_hand.take_card()
+                                self.player_hand.take_card()
+                                self.bet *= 2
+                        case "s":
+                                pass
+                        case "q":
+                                print("Farewell!")
+                                sys.exit()
+                                
         def render_game() -> None:
 
                 print("Dealer hand:")
@@ -39,6 +68,15 @@ class Game():
                 print(f"The total sum of your cards  is: {sum_hand(player_hand))}")
                 print()
 
+        def check_game() -> None:
+
+                if:
+                        self.buffer += self.bet
+                elif:
+                        self.buffer -= self.bet
+                else:
+                        print("Drawn")
+
 class Deck():
 
         def __init__(self) -> None:
@@ -50,9 +88,9 @@ class Deck():
                 while len(self.deck) < 2:
                         self.deck.append((create_card()))
                 
-        def create_card() -> None:
+        def take_card() -> None:
                 
-                return Card(random.choice(values), random.choice(suits))
+                return self.deck.append(Card(random.choice(values), random.choice(suits)))
 
         def flip_card(card_index: int) -> None:
                 
@@ -65,11 +103,11 @@ class Deck():
                         value = i.return_value()
 
                         if value in "A":
-                                value += 1        
+                                sum += 1        
                         elif i in ["K", "Q", "J"]:
-                                value += 10
+                                sum += 10
                         else:
-                                value += int(value)
+                                sum += int(value)
                 return sum
                         
         def render_deck() -> None:
@@ -82,8 +120,6 @@ class Deck():
                 while line_printed < 4:
                         print(" ".join(render_deck[line_printed] for card_line in render_deck))
                         line_printed += 1
-
-        def clear_deck()
                         
 class Card():
 
@@ -91,9 +127,8 @@ class Card():
                 " ___ ",
                 "|## |",
                 "| # |",
-                "|_##|",                
+                "|_##|",
         ]
-
 
         def __init__(self, value: int, suit: str, flipped: bool, flipped=True) -> None:
 
@@ -120,7 +155,7 @@ class Card():
 
                 card = card_hashmap
                 
-                if not self.flipped == true:
+                if not self.flipped == True:
                         if len(self.value) == 2:
                                 temp_value = self.value
                                 for i in card[1]:
@@ -133,23 +168,19 @@ class Card():
                                                 card.replace(card[3][i], temp_value[0])
                                                 temp_value.replace(temp_value[0], "")
                         else:
-                                temp_value = self.value
                                 is_blank = False
                                 for i in card[1]:
                                         if is_blank == True and i == "#":
                                                 card.replace(card[1][i], " ")
-                                                is_blank = True
                                         elif i == "#":
-                                                card.replace(card[1][i], temp_value[0])
-                                                temp_value.replace()
-                                temp_value = self.value
+                                                card.replace(card[1][i], self.value)
+                                                is_blank = True
                                 for i in card[3]:
                                         if is_blank == True and i == "#":
                                                 card.replace(card[3][i], "_")
                                                 is_blank = False
                                         elif i == "#":
-                                                card.replace(card[3][i], temp_value[0])
-                                                temp_value.replace(value[0], "")
+                                                card.replace(card[3][i], self.value)
                         for i in card[2]:
                                 if i == "#": card[2][i] = self.suit
                         return card
@@ -158,34 +189,72 @@ class Card():
                                         
 def main() -> None:
 
-    player_hand = [take_card()]
-    dealer_hand = [take_card()]
+        money = 500
 
-    money = 500
+        while True:
+                game = Game(money)
+                buffer_money = self.money
+                while buffer_money > 0:
+                        current_deck = game.get_hands()
+                        current_bet = get_bet(self.buffer_money)
+                
+                        while current_state != False:
+                                game.do_action()
+                                game.render_game()
 
-    print('''
-Actions:
+                                current_state, winner = game.check_game(current_buffer)
 
-Hit (H) -> take card
-Stand (K) -> keep hand
-Double down (D) -> take card and double the bet
-Split (S) -> if you have two same cards, split in two and double down
-Surrender (Q)
-'''
-    while money <= 0:
-        print("Take action: ")
-       	action = do_action(player_hand)
-	print_game(dealer_hand, player_hand)
-	check_hands(dealer_hand, player_hand)
-			
-def check_hands(dealer_hand: tuple, player_hand: tuple) -> None:
+                        if winner == "player":
+                                buffer_money += current_bet
+                                if winner == "dealer":
+                                        buffer_money -= current_bet   
+                                else:
+                                        print("It is a draw!")
+                valid_entries = ["c", "m", "q"]
+                print('''
+Want to continue playing?
 
-    for 
+C - Continue
+M - Continue and change money
+Q - Quit
+                ''')
 
-    if player_hand > dealer_hand:
-    if player_hand > 21:
-    if dealer_hand > 21:
+                while True:
+                        entry = input("> ")
+                        if entry.lowercase().strip() not in valid_entries:
+                                break
+                        print("Invalid entry")
+                match entry:
+                        case "c":
+                                pass
+                        case "m":
+                                money =
 
-def take_card() -> int:
-	
-    return {random.choice(cards), random.choice(suit)}
+def get_money() -> int:
+
+        try:
+                while True:
+                        return int(input("> "))
+        except ValueError:
+                print("Invalid entry")
+                        
+        
+def get_bet(current_money: int) -> int:
+
+        try:
+                while True:
+                        print("How much you want to bet? (Q to quit)")
+                        wanted_bet = input("> ")
+                        
+                        if wanted_bet.lowercase().strip() == "q":
+                                print("Farewell!")
+                                sys.exit()
+
+                        if 0 < int(wanted_bet) <= current_money:
+                                return int(wanted_bet)
+                        print("Invalid bet")
+        except ValueError:
+                print("Invalid entry")
+        
+if __name__ == "__main__":
+        main()
